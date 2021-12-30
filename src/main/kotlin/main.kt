@@ -42,8 +42,8 @@ fun main() {
                                 postAuthor = getAuthor(client, postsWithComments.post.authorId),
                                 comments = postsWithComments.comments,
                                 commentsAuthors = postsWithComments.comments.map { comment ->
-                                    getAuthor(client, comment.authorId)
-                                })
+                                    async { getAuthor(client, comment.authorId) }
+                                }.awaitAll())
                         }
                     }.awaitAll()
 
